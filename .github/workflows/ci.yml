@@ -26,7 +26,7 @@ jobs:
       run: ./hello
 
     - name: Upload binary as artifact
-      uses: actions/upload-artifact@v3
+	  uses: actions/upload-artifact@v2
       with:
         name: hello-binary
         path: hello
