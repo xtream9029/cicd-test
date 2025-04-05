@@ -3,6 +3,8 @@
 
 int main() {
     std::cout << "Hello, CI/CD with GitHub Actions!" << std::endl;
+    std::cout << "Hello, CI/CD with GitHub Actions!" << std::endl;
+    std::cout << "Hello, CI/CD with GitHub Actions!" << std::endl;
     return 0;
 }
 
