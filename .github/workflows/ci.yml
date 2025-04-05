@@ -14,20 +14,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install C++ build tools
+    - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential
+        sudo apt-get install -y build-essential subversion
 
-    - name: Build using Makefile
+    - name: Build with Makefile
       run: make
 
     - name: Run binary
       run: ./hello
 
-    - name: Upload binary as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: hello-binary
-        path: hello
+    - name: SVN checkout and commit
+      env:
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SVN_URL: https://svn.riouxsvn.com/binarysync
+      run: |
+        svn checkout --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --non-interactive "$SVN_URL" svn_workspace
+
+        cp ./hello svn_workspace/hello
+
+        cd svn_workspace
+        svn add --force .  # add new files if needed
+        svn commit -m "Auto-commit: uploaded hello binary from GitHub Actions"
 
