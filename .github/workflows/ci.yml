@@ -37,5 +37,6 @@ jobs:
 
         cd svn_workspace
         svn add --force .  # add new files if needed
-        svn commit -m "Auto-commit: uploaded hello binary from GitHub Actions"
+       	svn commit -m "Auto-commit: uploaded hello binary from GitHub Actions" --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --non-interactive
+ 
 
